@@ -47,6 +47,7 @@ function Accueil({ onCommencer }) {
               L’amour, c’est beau.
               <br />
               <span>Mais toi, tu es comment ?</span>
+              <p>404, Logique amoureuse introuvable</p>
             </h1>
 
             <p>
