@@ -1,0 +1,38 @@
+
+.progression {
+  margin-top: 35px;
+}
+
+.progression-infos {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  color: #987583;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.progression-piste {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #f1e4e8;
+}
+
+.progression-remplissage {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d77b99, #702b45);
+  transition: width 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progression-remplissage {
+    transition: none;
+  }
+}
+

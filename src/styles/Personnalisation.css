@@ -1,0 +1,289 @@
+.personnalisation {
+min-height: 100vh;
+padding: 36px 20px 48px;
+display: flex;
+justify-content: center;
+align-items: flex-start;
+background: var(--creme, #fff8f5);
+box-sizing: border-box;
+}
+
+.personnalisation *,
+.personnalisation *::before,
+.personnalisation *::after {
+box-sizing: border-box;
+}
+
+.personnalisation-container {
+width: 100%;
+max-width: 510px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 24px;
+}
+
+/* Illustration au-dessus du formulaire */
+
+.personnalisation-illustration {
+width: 100%;
+height: 220px;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+}
+
+.personnalisation-illustration img {
+display: block;
+width: 100%;
+height: 100%;
+object-fit: contain;
+object-position: center;
+}
+
+/* Formulaire */
+
+.personnalisation-card {
+width: 100%;
+padding: 32px;
+background: rgba(255, 255, 255, 0.82);
+border: 1px solid rgba(184, 76, 112, 0.12);
+border-radius: 24px;
+box-shadow: 0 12px 40px rgba(112, 43, 69, 0.06);
+text-align: center;
+}
+
+.personnalisation-heart {
+width: 48px;
+height: 48px;
+margin: 0 auto 18px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--rose-fonce, #b84c70);
+background: #fbeaf0;
+border-radius: 50%;
+}
+
+.personnalisation-tag {
+display: block;
+margin-bottom: 12px;
+color: var(--rose-fonce, #b84c70);
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 2px;
+}
+
+.personnalisation-card h1 {
+margin: 0;
+color: var(--bordeaux, #702b45);
+font-family: Georgia, 'Times New Roman', serif;
+font-size: clamp(28px, 5vw, 36px);
+font-weight: 500;
+line-height: 1.25;
+}
+
+.personnalisation-card h1 span {
+color: var(--rose-fonce, #b84c70);
+font-style: italic;
+}
+
+.personnalisation-description {
+max-width: 350px;
+margin: 14px auto 26px;
+color: var(--texte, #542638);
+font-size: 14px;
+line-height: 1.7;
+opacity: 0.8;
+}
+
+/* Choix du genre */
+
+.genre-options {
+min-width: 0;
+margin: 0;
+padding: 0;
+border: 0;
+text-align: left;
+}
+
+.genre-options legend {
+margin-bottom: 12px;
+color: var(--bordeaux, #702b45);
+font-size: 14px;
+font-weight: 700;
+}
+
+.genre-option {
+width: 100%;
+min-height: 66px;
+margin-bottom: 12px;
+padding: 12px 16px;
+display: flex;
+align-items: center;
+gap: 14px;
+color: var(--texte, #542638);
+background: #fffaf9;
+border: 1px solid #f0dce3;
+border-radius: 14px;
+font: inherit;
+text-align: left;
+cursor: pointer;
+transition:
+border-color 0.2s ease,
+background 0.2s ease,
+transform 0.2s ease;
+}
+
+.genre-option:hover {
+border-color: var(--rose-fonce, #b84c70);
+transform: translateY(-1px);
+}
+
+.genre-option.selected {
+background: #fff0f5;
+border-color: var(--rose-fonce, #b84c70);
+}
+
+.genre-icon {
+width: 40px;
+height: 40px;
+flex-shrink: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--rose-fonce, #b84c70);
+background: #fbe5ed;
+border-radius: 12px;
+}
+
+.genre-label {
+flex: 1;
+font-size: 14px;
+font-weight: 600;
+}
+
+.genre-radio {
+width: 18px;
+height: 18px;
+flex-shrink: 0;
+border: 1.5px solid #d9a6b8;
+border-radius: 50%;
+}
+
+.genre-option.selected .genre-radio {
+border: 5px solid var(--rose-fonce, #b84c70);
+}
+
+/* Bouton Continuer */
+
+.personnalisation-button {
+width: 100%;
+min-height: 50px;
+margin-top: 10px;
+padding: 14px 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+color: white;
+background: var(--bordeaux, #702b45);
+border: none;
+border-radius: 14px;
+font: inherit;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+transition:
+background 0.2s ease,
+transform 0.2s ease,
+opacity 0.2s ease;
+}
+
+.personnalisation-button:not(:disabled):hover {
+background: var(--rose-fonce, #b84c70);
+transform: translateY(-2px);
+}
+
+.personnalisation-button:disabled {
+opacity: 0.45;
+cursor: not-allowed;
+}
+
+.personnalisation-note {
+margin: 18px 0 0;
+color: var(--texte, #542638);
+font-size: 12px;
+opacity: 0.65;
+}
+
+/* Tablettes et mobiles */
+
+@media (max-width: 600px) {
+.personnalisation {
+min-height: 100vh;
+padding: 20px 16px 32px;
+}
+
+.personnalisation-container {
+max-width: 420px;
+gap: 12px;
+}
+
+.personnalisation-illustration {
+height: clamp(130px, 36vw, 190px);
+}
+
+.personnalisation-card {
+padding: 24px 20px;
+border-radius: 20px;
+}
+
+.personnalisation-heart {
+width: 42px;
+height: 42px;
+margin-bottom: 14px;
+}
+
+.personnalisation-tag {
+font-size: 9px;
+letter-spacing: 1.5px;
+}
+
+.personnalisation-description {
+margin: 12px auto 22px;
+font-size: 13px;
+}
+
+.genre-option {
+min-height: 60px;
+padding: 10px 12px;
+}
+}
+
+@media (max-width: 360px) {
+.personnalisation {
+padding-right: 12px;
+padding-left: 12px;
+}
+
+.personnalisation-card {
+padding: 22px 16px;
+}
+
+.personnalisation-illustration {
+height: 125px;
+}
+
+.personnalisation-card h1 {
+font-size: 27px;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+.genre-option,
+.personnalisation-button {
+transition: none;
+}
+}
