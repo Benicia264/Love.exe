@@ -1,0 +1,43 @@
+
+.site-header {
+  min-height: 84px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1dfe3;
+  background: var(--creme);
+}
+
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--bordeaux);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-logo svg {
+  color: var(--rose-fonce);
+}
+
+.site-brand {
+  color: var(--rose-fonce);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    min-height: 70px;
+    padding: 0 6%;
+  }
+
+  .site-logo {
+    font-size: 1.35rem;
+  }
+}
