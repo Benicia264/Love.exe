@@ -9,6 +9,8 @@ import {
 
 import '../styles/Resultat.css'
 
+const LIEN_SITE = 'https://benicia264.github.io/Love.exe/'
+
 const profils = {
   independant: {
     nom: 'Le cœur indépendant',
@@ -475,6 +477,8 @@ function Resultat({ resultat, onRecommencer }) {
   const { principal, secondaire } = analyse
 
   async function partagerResultat() {
+    const lien = LIEN_SITE
+
     const texte = [
       'J’ai découvert mon profil amoureux sur Love.exe.',
       '',
@@ -482,6 +486,8 @@ function Resultat({ resultat, onRecommencer }) {
       principal.titre,
       '',
       'Et toi, tu oserais découvrir le tien ?',
+      '',
+      `Fais le test ici : ${lien}`,
     ].join('\n')
 
     try {
@@ -489,13 +495,14 @@ function Resultat({ resultat, onRecommencer }) {
         await navigator.share({
           title: 'Mon profil amoureux — Love.exe',
           text: texte,
+          url: lien,
         })
         return
       }
 
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(texte)
-        window.alert('Ton résultat a été copié. À toi de le partager !')
+        window.alert('Le message et le lien ont été copiés. À toi de les partager !')
         return
       }
 
