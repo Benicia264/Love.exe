@@ -391,3 +391,111 @@
     transition: none;
   }
 }
+
+/* ================================
+   TAUX DE TOXICITÉ
+================================ */
+
+.resultat-toxicite {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #fff9fb 0%, #fff 100%);
+}
+
+.resultat-toxicite-score {
+  margin: 24px 0 20px;
+  font-size: clamp(3rem, 10vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: #d94f7b;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultat-toxicite-barre {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #f5dfe8;
+}
+
+.resultat-toxicite-progression {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 500ms ease;
+}
+
+.resultat-verdict-titre {
+  margin: 24px 0 12px;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.resultat-toxicite-note {
+  margin-top: 18px !important;
+  color: #9b8290;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+/* ================================
+   AJUSTEMENTS DU PROFIL TOXIQUE
+================================ */
+
+.resultat-toxicite .resultat-profil-entete {
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.resultat-toxicite .resultat-etiquette {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.resultat-toxicite .resultat-roast-final {
+  margin-top: 24px;
+}
+
+/* ================================
+   RESPONSIVE — MOBILE
+================================ */
+
+@media (max-width: 600px) {
+  .resultat-toxicite-score {
+    margin: 20px 0 16px;
+    font-size: clamp(3rem, 16vw, 4.5rem);
+  }
+
+  .resultat-toxicite-barre {
+    height: 8px;
+  }
+
+  .resultat-verdict-titre {
+    margin-top: 20px;
+    font-size: 1.55rem;
+  }
+
+  .resultat-toxicite-note {
+    font-size: 0.73rem;
+  }
+
+  .resultat-toxicite .resultat-roast-final {
+    margin-top: 20px;
+  }
+}
+
+/* Respecte les préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .resultat-toxicite-progression {
+    transition: none;
+  }
+}

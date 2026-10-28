@@ -409,6 +409,115 @@ const profilsParDefaut = {
     'Même ton cœur refuse de rentrer dans une case. Il a visiblement lu les conditions d’utilisation.',
 }
 
+// Score humoristique associé à chaque profil.
+// Plus le score est élevé, plus les réponses indiquent des comportements
+// potentiellement compliqués dans une relation.
+const scoresToxicite = {
+  independant: 5,
+  prudent: 5,
+  romantique: 5,
+  vengeur: 75,
+  lucide: 0,
+  responsable: 0,
+  fuyant: 45,
+  defensif: 35,
+  communicatif: 0,
+  analytique: 5,
+  passif: 30,
+  jaloux: 60,
+  attache: 20,
+  fusionnel: 35,
+  competitif: 30,
+  investi: 0,
+  coherent: 0,
+  equilibre: 0,
+  mefiant: 30,
+  contradictoire: 40,
+  'honnête': 0,
+  indecis: 20,
+  opportuniste: 65,
+  complaisant: 20,
+  autonome: 0,
+  genereux: 5,
+  rancunier: 60,
+  patient: 5,
+  intense: 25,
+  nostalgique: 20,
+  direct: 0,
+  sensible: 0,
+  indirect: 30,
+  reactif: 55,
+  ferme: 0,
+  sauveur: 25,
+  douteux: 40,
+  protecteur: 25,
+  securise: 0,
+  anxieux: 25,
+  exigeant: 20,
+  idealiste: 10,
+  introspectif: 0,
+}
+
+function obtenirVerdict(taux) {
+  if (taux === 0) {
+    return {
+      titre: 'La princesse amoureuse 👑',
+      message:
+        '0 % de toxicité ! Tu veux aimer correctement, communiquer et respecter l’autre. Franchement, c’est suspect : tu as lu le manuel du couple ou tu es juste venu humilier les autres ? Ne prends quand même pas la grosse tête, personne n’est parfait.',
+      roast:
+        'Tu es tellement sain que même tes red flags sont en rupture de stock. Bon, madame ou monsieur l’ange, on va éviter de distribuer des leçons à tout le monde.',
+    }
+  }
+
+  if (taux <= 20) {
+    return {
+      titre: 'Le green flag avec quelques mises à jour 🌱',
+      message:
+        'Tu as plutôt de bonnes bases. Quelques petites habitudes peuvent te jouer des tours, mais rien ne dit que tu es le problème principal de chaque histoire.',
+      roast:
+        'Tu veux une relation saine, mais ne va pas commencer à faire passer des entretiens d’embauche aux gens juste parce que tu as obtenu un bon score.',
+    }
+  }
+
+  if (taux <= 40) {
+    return {
+      titre: 'Le jaune clignotant 🚧',
+      message:
+        'Tu as quelques comportements à surveiller. Tu peux aimer sincèrement et quand même compliquer les choses quand l’ego, la peur ou les non-dits prennent le volant.',
+      roast:
+        'Tu n’es pas forcément toxique, mais ton partenaire mérite parfois un casque et une notice d’utilisation.',
+    }
+  }
+
+  if (taux <= 60) {
+    return {
+      titre: 'Le red flag en période d’essai 🚩',
+      message:
+        'Certaines de tes réactions risquent de créer des tensions. La bonne nouvelle : reconnaître ses habitudes, c’est déjà pouvoir commencer à les changer.',
+      roast:
+        'Ton cœur veut une belle histoire, mais ton comportement semble écrire une série dramatique avec un budget illimité.',
+    }
+  }
+
+  if (taux <= 80) {
+    return {
+      titre: 'Le comité des problèmes sentimentaux 🔥',
+      message:
+        'Tes choix font ressortir plusieurs comportements qui peuvent abîmer la confiance. Si tu veux une relation apaisée, il va falloir arrêter de prendre chaque blessure pour une autorisation de rendre les coups.',
+      roast:
+        'Tu ne cherches pas une relation, tu prépares une saison complète de téléréalité. Même les producteurs demanderaient une pause.',
+    }
+  }
+
+  return {
+    titre: 'Le red flag en chef 🚨',
+    message:
+      'Ton score humoristique est élevé. Il est temps de regarder honnêtement les comportements qui peuvent blesser l’autre et de faire des choix différents. Ce résultat ne te définit pas, mais tes actes ont des conséquences.',
+    roast:
+      'Cupidon a vu tes réponses, il a rangé ses flèches et il est parti travailler dans la livraison de fleurs.',
+  }
+}
+
 function analyserReponses(reponses = []) {
   const reponsesValides = reponses.filter(
     (reponse) => reponse?.profil,
@@ -418,7 +527,6 @@ function analyserReponses(reponses = []) {
 
   reponsesValides.forEach((reponse) => {
     const profil = reponse.profil
-
     compteurs[profil] = (compteurs[profil] || 0) + 1
   })
 
@@ -445,15 +553,32 @@ function analyserReponses(reponses = []) {
 
   const themesFrequents = Object.entries(
     themes.reduce((compteursThemes, theme) => {
-      compteursThemes[theme] = (compteursThemes[theme] || 0) + 1
+      compteursThemes[theme] =
+        (compteursThemes[theme] || 0) + 1
       return compteursThemes
     }, {}),
   ).sort((a, b) => b[1] - a[1])
 
   const nombreReponses = reponsesValides.length
 
+  // Calcul du score moyen des réponses sélectionnées.
+  // Une réponse inconnue reçoit un score neutre de 20.
+  const totalToxicite = reponsesValides.reduce(
+    (total, reponse) => {
+      return total + (scoresToxicite[reponse.profil] ?? 20)
+    },
+    0,
+  )
+
+  const toxicite =
+    nombreReponses > 0
+      ? Math.round(totalToxicite / nombreReponses)
+      : 0
+
+  const verdict = obtenirVerdict(toxicite)
+
   const intro =
-    nombreReponses >= 15
+    nombreReponses >= 10
       ? 'Tu as répondu aux questions sans te défiler. Maintenant, assumons ensemble les conséquences.'
       : 'Voici ce que tes réponses laissent entrevoir. Considère ce portrait comme un miroir humoristique, pas comme un diagnostic.'
 
@@ -465,6 +590,8 @@ function analyserReponses(reponses = []) {
     nombreReponses,
     intro,
     profilDominant,
+    toxicite,
+    verdict,
   }
 }
 
@@ -474,7 +601,23 @@ function Resultat({ resultat, onRecommencer }) {
     [resultat],
   )
 
-  const { principal, secondaire } = analyse
+  const {
+    principal,
+    secondaire,
+    toxicite,
+    verdict,
+  } = analyse
+
+  const couleurToxicite =
+    toxicite === 0
+      ? '#16a34a'
+      : toxicite <= 20
+        ? '#84cc16'
+        : toxicite <= 40
+          ? '#f59e0b'
+          : toxicite <= 60
+            ? '#f97316'
+            : '#e11d48'
 
   async function partagerResultat() {
     const lien = LIEN_SITE
@@ -484,6 +627,9 @@ function Resultat({ resultat, onRecommencer }) {
       '',
       `Mon profil : ${principal.nom}`,
       principal.titre,
+      '',
+      `Mon taux de toxicité : ${toxicite} %`,
+      verdict.titre,
       '',
       'Et toi, tu oserais découvrir le tien ?',
       '',
@@ -502,14 +648,18 @@ function Resultat({ resultat, onRecommencer }) {
 
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(texte)
-        window.alert('Le message et le lien ont été copiés. À toi de les partager !')
+        window.alert(
+          'Le message et le lien ont été copiés. À toi de les partager !',
+        )
         return
       }
 
       window.prompt('Copie ton résultat pour le partager :', texte)
     } catch (erreur) {
       if (erreur?.name !== 'AbortError') {
-        window.alert('Impossible de partager le résultat pour le moment.')
+        window.alert(
+          'Impossible de partager le résultat pour le moment.',
+        )
       }
     }
   }
@@ -539,7 +689,68 @@ function Resultat({ resultat, onRecommencer }) {
 
           <h1>Alors, on aime comment ?</h1>
 
-          <p className="resultat-intro">{analyse.intro}</p>
+          <p className="resultat-intro">
+            {analyse.intro}
+          </p>
+        </section>
+
+        <section
+          className="resultat-profil resultat-toxicite"
+          aria-label="Taux de toxicité"
+        >
+          <div className="resultat-profil-entete">
+            <span className="resultat-etiquette">
+              TON TAUX DE TOXICITÉ
+            </span>
+
+            <Sparkles size={20} aria-hidden="true" />
+          </div>
+
+          <div
+            className="resultat-toxicite-score"
+            style={{ color: couleurToxicite }}
+          >
+            {toxicite} %
+          </div>
+
+          <div
+            className="resultat-toxicite-barre"
+            role="progressbar"
+            aria-label="Taux de toxicité humoristique"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={toxicite}
+          >
+            <div
+              className="resultat-toxicite-progression"
+              style={{
+                width: `${toxicite}%`,
+                backgroundColor: couleurToxicite,
+              }}
+            />
+          </div>
+
+          <h2 className="resultat-verdict-titre">
+            {verdict.titre}
+          </h2>
+
+          <p>{verdict.message}</p>
+
+          <div className="resultat-roast-final">
+            <div className="resultat-roast-icone">
+              <MessageIcon />
+            </div>
+
+            <div>
+              <span>LE ROAST DU VERDICT</span>
+              <p>{verdict.roast}</p>
+            </div>
+          </div>
+
+          <p className="resultat-toxicite-note">
+            Score humoristique calculé à partir de tes réponses.
+            Ce n’est ni un diagnostic ni une étiquette définitive.
+          </p>
         </section>
 
         <section className="resultat-profil">
